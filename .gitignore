@@ -1,0 +1,24 @@
+# Backend
+backend/.env
+backend/venv/
+
+# Frontend
+frontend/node_modules/
+
+# General node_modules (safety)
+**/node_modules/
+
+# Python cache
+**/__pycache__/
+*.pyc
+
+# Environment files (safety)
+*.env
+**/.env
+
+# Logs
+*.log
+
+# Build folders
+**/build/
+**/dist/
