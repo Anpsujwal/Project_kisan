@@ -1,6 +1,37 @@
 const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000/api';
 
 export const api = {
+  // Auth
+  register: async ({ name, email, password }) => {
+    const res = await fetch(`${BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    if (!res.ok) throw new Error('Registration failed');
+    const data = await res.json();
+    if (data?.access_token) localStorage.setItem('token', data.access_token);
+    return data;
+  },
+  login: async ({ email, password }) => {
+    const res = await fetch(`${BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    if (!res.ok) throw new Error('Login failed');
+    const data = await res.json();
+    if (data?.access_token) localStorage.setItem('token', data.access_token);
+    return data;
+  },
+  me: async () => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE}/auth/me`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
+    if (!res.ok) throw new Error('Failed to fetch user');
+    return res.json();
+  },
   // Live Chat
   sendMessage: async ({ text, audioFile, userId }) => {
     const fd = new FormData();

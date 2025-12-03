@@ -55,6 +55,10 @@ label { display:block; margin: 8px 0 4px; }
 .form-row { display:flex; gap: 10px; flex-wrap: wrap; }
 .grow { flex: 1 1 auto; }
 
+/* Auth pages */
+.auth-container { min-height: calc(100vh - 0px); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.auth-container .card { width: 100%; max-width: 420px; }
+
 /* Responsive */
 @media (max-width: 900px) {
   .layout { grid-template-columns: 1fr; }

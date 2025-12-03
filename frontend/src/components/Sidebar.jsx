@@ -1,6 +1,13 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    navigate('/login', { replace: true })
+  }
+
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -26,15 +33,6 @@ export default function Sidebar() {
             </svg>
           </span>
           <span className="nav-label">Home</span>
-        </NavLink>
-        <NavLink to="/government-schemes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-          <span className="nav-icon" aria-hidden>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 9l8-5 8 5v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M9 21V9h6v12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-          <span className="nav-label">Government Schemes</span>
         </NavLink>
         <NavLink to="/live-chat" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
           <span className="nav-icon" aria-hidden>
@@ -73,7 +71,17 @@ export default function Sidebar() {
           <span className="nav-label">Smart Utilities</span>
         </NavLink>
       </nav>
-      <div className="sidebar-footer">Phase 1</div>
+      <div className="sidebar-footer">
+        <button type="button" className="nav-link" onClick={logout} style={{ width: '100%', textAlign: 'left' }}>
+          <span className="nav-icon" aria-hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span className="nav-label">Logout</span>
+        </button>
+      </div>
     </aside>
   )
 }

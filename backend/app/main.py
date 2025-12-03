@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 from .routers import chat, disease, market, schemes, utilities, users
+from .routers import auth
 
 app = FastAPI(title="Project Kisan Backend", version="0.1.0")
 
@@ -22,6 +23,7 @@ app.include_router(market.router, prefix="/api", tags=["market"])
 app.include_router(schemes.router, prefix="/api", tags=["schemes"])
 app.include_router(utilities.router, prefix="/api", tags=["utilities"])
 app.include_router(users.router, prefix="/api", tags=["users"])
+app.include_router(auth.router, prefix="/api", tags=["auth"])
 
 
 @app.get("/health")

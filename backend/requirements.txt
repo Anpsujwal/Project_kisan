@@ -10,3 +10,6 @@ gTTS==2.5.3
 SpeechRecognition==3.10.4
 pydub==0.25.1
 python-dotenv==1.0.1
+passlib[bcrypt]==1.7.4
+PyJWT==2.9.0
+email-validator==2.2.0

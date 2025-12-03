@@ -7,15 +7,23 @@ from ..utils.ai import embed_texts, generate_text
 
 router = APIRouter()
 
-_client = chromadb.Client()
-_collection = _client.get_or_create_collection(name="schemes")
+_client = None
+_collection = None
 _seeded = False
+
+
+def _ensure_collection():
+    global _client, _collection
+    if _client is None or _collection is None:
+        _client = chromadb.Client()
+        _collection = _client.get_or_create_collection(name="schemes")
 
 
 def _seed_if_needed():
     global _seeded
     if _seeded:
         return
+    _ensure_collection()
     # Minimal seed examples (public generic info)
     docs = [
         {
@@ -51,6 +59,7 @@ async def search_schemes(
     category: Optional[str] = Query(None),
     state: Optional[str] = Query(None),
 ):
+    _ensure_collection()
     _seed_if_needed()
     query = q or "farmer subsidy"
     query_embed = embed_texts([query])[0]

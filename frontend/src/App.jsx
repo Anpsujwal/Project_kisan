@@ -4,12 +4,17 @@ import Home from './pages/Home'
 import LiveChat from './pages/LiveChat'
 import DiseaseDiagnosis from './pages/DiseaseDiagnosis'
 import MarketPrices from './pages/MarketPrices'
-import GovernmentSchemes from './pages/GovernmentSchemes'
 import SmartUtilities from './pages/SmartUtilities'
 import Sidebar from './components/Sidebar'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register'
 
   useEffect(() => {
     const root = document.documentElement
@@ -18,6 +23,29 @@ export default function App() {
   }, [theme])
 
   const toggleTheme = () => setTheme(t => (t === 'light' ? 'dark' : 'light'))
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    const publicPaths = ['/login', '/register']
+    if (!token && !publicPaths.includes(location.pathname)) {
+      navigate('/login', { replace: true })
+    }
+    // If already authenticated, keep users out of auth pages
+    if (token && publicPaths.includes(location.pathname)) {
+      navigate('/', { replace: true })
+    }
+  }, [location.pathname, navigate])
+
+  // Full-screen auth shell without sidebar/topbar
+  if (isAuthPage) {
+    return (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    )
+  }
 
   return (
     <div className="layout">
@@ -37,7 +65,6 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/live-chat" element={<LiveChat />} />
             <Route path="/disease-diagnosis" element={<DiseaseDiagnosis />} />
-            <Route path="/government-schemes" element={<GovernmentSchemes />} />
             <Route path="/market-prices" element={<MarketPrices />} />
             <Route path="/smart-utilities" element={<SmartUtilities />} />
           </Routes>
