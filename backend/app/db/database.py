@@ -1,8 +1,8 @@
 import os
 from pymongo import MongoClient
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://127.0.0.1:27017")
-DB_NAME = os.getenv("DB_NAME", "project_kisan")
+MONGO_URI = os.getenv("MONGO_URI")
+DB_NAME = os.getenv("DB_NAME","project_kisan")
 
 _client: MongoClient | None = None
 

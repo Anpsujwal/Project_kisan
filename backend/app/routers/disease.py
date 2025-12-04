@@ -11,13 +11,23 @@ async def analyze_disease(
     symptoms: str | None = Form(None),
 ):
     img_bytes = await image.read()
+
     prompt = (
         "You are an agronomist. Analyze the crop disease from the image. "
-        "Return concise JSON with keys: disease, confidence (0-100), treatment, pesticides (array), prevention. "
+        "Return STRICT JSON ONLY in this exact format:\n"
+        "{"
+        "\"disease\": \"string\","
+        "\"confidence\": number,"
+        "\"treatment\": \"string\","
+        "\"pesticides\": [\"string\", \"string\"],"
+        "\"prevention\": \"string\""
+        "}\n"
         f"Crop: {crop or ''}. Symptoms: {symptoms or ''}."
     )
+
+
     text = vision_analyze(img_bytes, prompt)
-    # very light parse: try to extract fields heuristically if not perfect JSON
+
     result = {
         "disease": None,
         "confidence": None,
@@ -25,14 +35,23 @@ async def analyze_disease(
         "pesticides": [],
         "prevention": None,
     }
+
+    # 1) try full JSON
     try:
         import json
         data = json.loads(text)
         if isinstance(data, dict):
             result.update({k: data.get(k) for k in result.keys()})
-    except Exception:
+            return result
+    except:
         pass
-    if result["disease"] is None:
-        # fallback minimal extraction
-        result["disease"] = (text.split("\n")[0] or "Possible disease").strip()
+
+    # 2) try to extract "disease" heuristically
+    import re
+    m = re.search(r'"disease"\s*:\s*"([^"]+)"', text)
+    if m:
+        result["disease"] = m.group(1)
+    else:
+        result["disease"] = "Possible disease detected"
+
     return result
