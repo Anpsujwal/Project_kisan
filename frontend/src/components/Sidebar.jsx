@@ -70,9 +70,18 @@ export default function Sidebar() {
           </span>
           <span className="nav-label">Smart Utilities</span>
         </NavLink>
+        <NavLink to="/account" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+          <span className="nav-icon" aria-hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M4 20a8 8 0 1 1 16 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span className="nav-label">Account</span>
+        </NavLink>
       </nav>
       <div className="sidebar-footer">
-        <button type="button" className="nav-link" onClick={logout} style={{ width: '100%', textAlign: 'left' }}>
+        <button type="button" className="logout-button" onClick={logout} style={{ width: '100%', textAlign: 'left' }}>
           <span className="nav-icon" aria-hidden>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>

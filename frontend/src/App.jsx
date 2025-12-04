@@ -8,6 +8,7 @@ import SmartUtilities from './pages/SmartUtilities'
 import Sidebar from './components/Sidebar'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Account from './pages/Account'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function App() {
@@ -67,6 +68,7 @@ export default function App() {
             <Route path="/disease-diagnosis" element={<DiseaseDiagnosis />} />
             <Route path="/market-prices" element={<MarketPrices />} />
             <Route path="/smart-utilities" element={<SmartUtilities />} />
+            <Route path="/account" element={<Account />} />
           </Routes>
         </main>
       </div>

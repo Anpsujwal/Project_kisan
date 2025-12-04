@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 * { box-sizing: border-box; }
 :root { --bg: #0b1020; --panel: #0f172a; --panel-2: #111c33; --text: #e2e8f0; --muted: #94a3b8; --primary: #2563eb; --primary-700: #1d4ed8; --ring: #60a5fa; --card: #0f172a; --card-border: #1f2a44; --card-shadow: 0 10px 30px rgba(17, 24, 39, 0.22); --success: #22c55e; --warning: #f59e0b; --danger: #ef4444; --radius: 12px; }
 [data-theme="light"] { --bg: #f8fafc; --panel: #ffffff; --panel-2: #f1f5f9; --text: #0f172a; --muted: #475569; --primary: #2563eb; --primary-700: #1d4ed8; --ring: #60a5fa; --card: #ffffff; --card-border: #e2e8f0; --card-shadow: 0 10px 30px rgba(17, 24, 39, 0.08); }
-body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', 'Noto Sans', Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; background: var(--bg); color: var(--text); line-height: 1.5; }
+body { margin: 0; font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', 'Noto Sans', Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 header, nav, main { padding: 16px; }
 .container { max-width: 1100px; margin: 0 auto; }
 .container-wide { max-width: 1320px; margin: 0 auto; }
@@ -36,6 +37,10 @@ label { display:block; margin: 8px 0 4px; }
 .nav-icon { width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center; border-radius: 8px; background: rgba(255,255,255,.03); border:1px solid rgba(148,163,184,.18); color:#93c5fd; }
 .nav-label { flex: 1; }
 .sidebar-footer { margin-top: auto; font-size: 12px; opacity: 0.75; }
+/* Styled logout button */
+.logout-button { display:flex; align-items:center; gap:10px; color:#fecaca; background: linear-gradient(180deg, rgba(239,68,68,.14), rgba(239,68,68,.08)); border:1px solid rgba(239,68,68,.25); padding:10px 12px; border-radius: 10px; font-weight:700; letter-spacing:.2px; cursor: pointer; transition: background .15s ease, box-shadow .2s ease, transform .1s ease; }
+.logout-button:hover { background: rgba(239,68,68,.18); box-shadow: 0 8px 18px rgba(239,68,68,.1); transform: translateX(2px); }
+.logout-button .nav-icon { background: rgba(239,68,68,.08); color: #fecaca; border-color: rgba(239,68,68,.25); }
 
 .content { display: flex; flex-direction: column; min-width: 0; }
 .topbar { position: sticky; top: 0; z-index: 5; background: linear-gradient(180deg, rgba(15,23,42,0.75), rgba(15,23,42,0.55)); backdrop-filter: blur(10px); border-bottom: 1px solid #1f2a44; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
@@ -56,8 +61,16 @@ label { display:block; margin: 8px 0 4px; }
 .grow { flex: 1 1 auto; }
 
 /* Auth pages */
-.auth-container { min-height: calc(100vh - 0px); display: flex; align-items: center; justify-content: center; padding: 24px; }
-.auth-container .card { width: 100%; max-width: 420px; }
+.auth-container { min-height: calc(100vh - 0px); display: flex; align-items: center; justify-content: center; padding: 24px; background: radial-gradient(1200px 600px at 10% -20%, rgba(37,99,235,.15), transparent 70%), radial-gradient(1000px 600px at 100% 0%, rgba(16,185,129,.12), transparent 60%); }
+.auth-container .card { width: 100%; max-width: 440px; padding: 24px; }
+.auth-container .card h2 { margin: 0 0 14px; font-weight: 800; letter-spacing: .2px; }
+.auth-container .card label { display: block; margin-top: 12px; font-weight: 600; font-size: 13px; color: var(--muted); }
+.auth-container .card label span { display: inline-block; margin-bottom: 6px; color: var(--text); font-weight: 700; }
+.auth-container .card input[type="text"],
+.auth-container .card input[type="email"],
+.auth-container .card input[type="password"],
+.auth-container .card input[type="tel"] { margin-bottom: 6px; }
+.auth-container .card .button { width: 100%; margin-top: 12px; }
 
 /* Responsive */
 @media (max-width: 900px) {

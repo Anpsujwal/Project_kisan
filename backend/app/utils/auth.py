@@ -72,5 +72,6 @@ async def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] =
         "id": str(user.get("_id")),
         "name": user.get("name"),
         "email": user.get("email"),
+        "phone": user.get("phone"),
     }
     return user_out

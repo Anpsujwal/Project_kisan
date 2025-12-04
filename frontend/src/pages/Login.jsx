@@ -12,8 +12,26 @@ export default function Login() {
   const onSubmit = async (e) => {
     e.preventDefault()
     setError('')
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address')
+      return
+    }
+
     if (password.length < 6 || password.length > 20) {
       setError('Password must be 6-20 characters')
+      return
+    }
+    if (!/^[A-Z]/.test(password)) {
+      setError('Password must start with a capital letter')
+      return
+    }
+    if (!/\d/.test(password)) {
+      setError('Password must contain at least one digit')
+      return
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>_\-\[\]\\\/`'~+=;]/.test(password)) {
+      setError('Password must contain at least one special character')
       return
     }
     setLoading(true)
@@ -33,14 +51,14 @@ export default function Login() {
         <h2>Login</h2>
         {error ? <div className="alert">{error}</div> : null}
         <label>
-          <span>Email: </span>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <span>Email:  </span>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required title="Enter a valid email address (e.g., name@example.com)" />
         </label>
         <label>
-          <span>Password: </span>
-          <input type="password" minLength={6} maxLength={20} value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <span>Password:  </span>
+          <input type="password" minLength={6} maxLength={20} value={password} onChange={(e) => setPassword(e.target.value)} required title="6-20 chars, start with a capital letter, include a digit and a special character" />
         </label>
-        <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
+        <button className="button" type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
         <p className="muted">Don't have an account? <Link to="/register">Register</Link></p>
       </form>
     </div>

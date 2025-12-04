@@ -1,7 +1,7 @@
 import os
 from pymongo import MongoClient
 
-MONGO_URI = os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://127.0.0.1:27017")
 DB_NAME = os.getenv("DB_NAME","project_kisan")
 
 _client: MongoClient | None = None
@@ -10,7 +10,7 @@ _client: MongoClient | None = None
 def get_client() -> MongoClient:
     global _client
     if _client is None:
-        _client = MongoClient(MONGO_URI)
+        _client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
     return _client
 
 
