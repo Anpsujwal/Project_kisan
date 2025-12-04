@@ -27,12 +27,7 @@ export default function MarketPrices() {
       <div className="card">
         <h3>Filters</h3>
         <label htmlFor="commodity">Commodity</label>
-        <select id="commodity" className="input" value={commodity} onChange={e=>setCommodity(e.target.value)}>
-          <option value="">Select Commodity</option>
-          <option>Wheat</option>
-          <option>Rice</option>
-          <option>Cotton</option>
-        </select>
+        <input id="commodity" className="input" placeholder="e.g., Wheat" value={commodity} onChange={e=>setCommodity(e.target.value)} />
         <label htmlFor="state">State</label>
         <input id="state" className="input" placeholder="e.g., Maharashtra" value={state} onChange={e=>setState(e.target.value)} />
         <label htmlFor="district">District</label>
