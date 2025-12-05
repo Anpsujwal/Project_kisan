@@ -10,11 +10,11 @@ app = FastAPI(title="Project Kisan Backend", version="0.1.0")
 
 # CORS (development-friendly; tighten later)
 frontend_origins_env = os.getenv("FRONTEND_ORIGINS", "http://localhost:5173").split(",")
-allowed_origins = [o.strip() for o in frontend_origins_env if o.strip()]
+# allowed_origins = [o.strip() for o in frontend_origins_env if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,  # Explicit origins required when allow_credentials=True
+    allow_origins=["*"],  # Explicit origins required when allow_credentials=True
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
